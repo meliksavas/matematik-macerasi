@@ -242,6 +242,7 @@
 
   function nextQuestion() {
     if (!state.answered) return;
+    Sounds.stop();
     if (state.index < QUESTIONS.length - 1) {
       state.index += 1;
       renderQuestion();

@@ -560,6 +560,13 @@ sup { font-size: 0.68em; line-height: 0; }
   font-weight: 600;
   padding: 0 16px 24px;
 }
+.footer small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  opacity: 0.8;
+}
+.footer a { color: inherit; }
 
 @media (max-width: 560px) {
   body { font-size: 16px; }
