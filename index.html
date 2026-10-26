@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matematik Macerası</title>
+  <meta name="description" content="8. sınıflar için üslü sayılar, çarpanlar ve katlar, EBOB ve EKOK konularında 20 yeni nesil sorudan oluşan matematik oyunu.">
+  <meta name="theme-color" content="#4c1d95">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <span style="left:6%;top:12%;animation-duration:14s">x²</span>
+    <span style="left:82%;top:8%;animation-duration:18s">÷</span>
+    <span style="left:14%;top:70%;animation-duration:16s">EBOB</span>
+    <span style="left:72%;top:78%;animation-duration:20s">EKOK</span>
+    <span style="left:44%;top:4%;animation-duration:15s">2³</span>
+    <span style="left:90%;top:45%;animation-duration:17s">×</span>
+    <span style="left:3%;top:42%;animation-duration:19s">10⁻⁵</span>
+    <span style="left:55%;top:88%;animation-duration:13s">aⁿ</span>
+    <span style="left:30%;top:30%;animation-duration:22s">=</span>
+    <span style="left:64%;top:26%;animation-duration:21s">36</span>
+  </div>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <button id="sound-toggle" class="sound-toggle" type="button" aria-pressed="false" title="Sesi aç/kapat">🔊</button>
+
+  <main class="wrap">
+    <!-- Başlangıç ekranı -->
+    <section id="start-screen" class="screen">
+      <div class="hero">
+        <div class="hero-emoji" aria-hidden="true">🧭</div>
+        <h1 class="title">Matematik Macerası</h1>
+        <p class="subtitle">8. Sınıf • Yeni Nesil Sorular</p>
+      </div>
+
+      <div class="card start-card">
+        <div class="chips">
+          <span class="topic topic-powers">Üslü Sayılar</span>
+          <span class="topic topic-factors">Çarpanlar ve Katlar</span>
+          <span class="topic topic-gcd">EBOB ve EKOK</span>
+        </div>
+        <ul class="info-list">
+          <li><span aria-hidden="true">📝</span> 20 yeni nesil soru, orta zorluk</li>
+          <li><span aria-hidden="true">⭐</span> Her doğru cevap 5 puan, toplam 100 puan</li>
+          <li><span aria-hidden="true">👏</span> Doğru cevapta alkış ve sevinç sesleri</li>
+          <li><span aria-hidden="true">💡</span> Yanlış cevapta adım adım çözüm</li>
+        </ul>
+        <button id="start-btn" class="btn btn-start" type="button">Oyuna Başla ▶</button>
+        <p class="hint">İpucu: Şıkları klavyeden <kbd>A</kbd>–<kbd>D</kbd> ile de seçebilirsin.</p>
+      </div>
+    </section>
+
+    <!-- Oyun ekranı -->
+    <section id="game-screen" class="screen" hidden>
+      <header class="game-head">
+        <div class="brand">🧭 Matematik Macerası</div>
+        <div class="stats">
+          <span id="streak" class="stat stat-streak" hidden></span>
+          <span id="score" class="stat stat-score">⭐ 0 puan</span>
+        </div>
+      </header>
+
+      <div class="progress-row">
+        <span id="q-number" class="q-number">Soru 1 / 20</span>
+        <div class="progress" role="progressbar" aria-label="İlerleme" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <article id="question-card" class="card question-card">
+        <span id="q-topic" class="topic"></span>
+        <div id="q-text" class="q-text"></div>
+        <div id="q-figure" class="q-figure" hidden></div>
+        <div id="options" class="options"></div>
+        <div id="feedback" class="feedback" hidden aria-live="polite"></div>
+        <button id="next-btn" class="btn btn-next" type="button" hidden>Sonraki Soru ➜</button>
+      </article>
+    </section>
+
+    <!-- Bitiş ekranı -->
+    <section id="end-screen" class="screen" hidden>
+      <div class="card end-card">
+        <div class="trophy" aria-hidden="true">🏆</div>
+        <h2 class="end-title">Macera Tamamlandı!</h2>
+        <div id="stars" class="stars" aria-hidden="true"></div>
+        <p id="final-score" class="final-score"></p>
+        <p id="final-detail" class="final-detail"></p>
+        <p id="final-message" class="final-message"></p>
+        <div id="breakdown" class="breakdown"></div>
+        <div class="end-actions">
+          <button id="restart-btn" class="btn btn-start" type="button">Tekrar Oyna 🔄</button>
+          <button id="home-btn" class="btn btn-ghost" type="button">Ana Sayfa</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">8. Sınıf Matematik • LGS'ye hazırlık için eğlenceli tekrar</footer>
+
+  <script src="questions.js"></script>
+  <script src="sounds.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

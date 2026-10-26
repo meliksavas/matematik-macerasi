@@ -1,0 +1,582 @@
+:root {
+  --ink: #1f1d3a;
+  --muted: #5d5a7a;
+  --card: #ffffff;
+  --line: #e8e5f6;
+  --soft: #f6f4ff;
+  --brand: #6d28d9;
+  --brand-dark: #4c1d95;
+  --accent: #f59e0b;
+  --accent-dark: #b45309;
+  --ok: #15803d;
+  --ok-bg: #dcfce7;
+  --ok-line: #22c55e;
+  --bad: #b91c1c;
+  --bad-bg: #fee2e2;
+  --bad-line: #ef4444;
+  --radius: 24px;
+  --shadow: 0 18px 50px rgba(30, 10, 80, 0.28);
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body { margin: 0; }
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: linear-gradient(155deg, #312e81 0%, #6d28d9 48%, #c026d3 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* Arka planda süzülen matematik sembolleri */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.backdrop span {
+  position: absolute;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 800;
+  font-size: clamp(26px, 5vw, 46px);
+  color: rgba(255, 255, 255, 0.09);
+  animation: float 16s ease-in-out infinite alternate;
+  user-select: none;
+}
+@keyframes float {
+  from { transform: translateY(0) rotate(-6deg); }
+  to { transform: translateY(-40px) rotate(8deg); }
+}
+
+#confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px 32px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+}
+
+/* Ses düğmesi */
+.sound-toggle {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 60;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  font-size: 22px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s, transform 0.2s;
+}
+.sound-toggle:hover { background: rgba(255, 255, 255, 0.3); transform: scale(1.06); }
+
+/* Düğmeler */
+.btn {
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 800;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.btn:focus-visible, .option:focus-visible, .sound-toggle:focus-visible {
+  outline: 3px solid #fde047;
+  outline-offset: 3px;
+}
+.btn-start {
+  display: block;
+  width: 100%;
+  padding: 16px 24px;
+  font-size: 26px;
+  color: #3b1d00;
+  background: linear-gradient(180deg, #fcd34d, var(--accent));
+  box-shadow: 0 6px 0 var(--accent-dark), 0 12px 24px rgba(180, 83, 9, 0.35);
+}
+.btn-start:hover { transform: translateY(-2px); }
+.btn-start:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--accent-dark); }
+#start-btn { animation: pulse 2.2s ease-in-out infinite; }
+@keyframes pulse {
+  0%, 100% { scale: 1; }
+  50% { scale: 1.03; }
+}
+.btn-next {
+  display: block;
+  margin: 20px 0 0 auto;
+  padding: 12px 28px;
+  font-size: 20px;
+  color: #fff;
+  background: linear-gradient(180deg, #8b5cf6, var(--brand));
+  box-shadow: 0 5px 0 var(--brand-dark);
+}
+.btn-next:hover { transform: translateY(-2px); }
+.btn-next:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--brand-dark); }
+.btn-ghost {
+  padding: 12px 24px;
+  font-size: 20px;
+  color: var(--brand);
+  background: var(--soft);
+}
+.btn-ghost:hover { background: #ece8ff; }
+
+/* Başlangıç ekranı */
+.hero {
+  text-align: center;
+  color: #fff;
+  margin: 28px 0 24px;
+}
+.hero-emoji {
+  font-size: 76px;
+  line-height: 1;
+  animation: spin-wobble 4s ease-in-out infinite;
+}
+@keyframes spin-wobble {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+.title {
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 800;
+  font-size: clamp(40px, 9vw, 64px);
+  line-height: 1.05;
+  margin: 10px 0 6px;
+  text-shadow: 0 4px 0 rgba(40, 10, 90, 0.45), 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.subtitle {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  opacity: 0.9;
+}
+.start-card { text-align: left; }
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  display: grid;
+  gap: 10px;
+}
+.info-list li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: var(--soft);
+  font-weight: 700;
+}
+.info-list li span { font-size: 22px; }
+.hint {
+  margin: 16px 0 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+kbd {
+  display: inline-block;
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  border-bottom-width: 3px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 13px;
+  background: #fff;
+}
+
+/* Konu etiketleri */
+.topic {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+.topic-powers { background: #ede9fe; color: #5b21b6; }
+.topic-factors { background: #ccfbf1; color: #0f766e; }
+.topic-gcd { background: #ffedd5; color: #c2410c; }
+
+/* Oyun ekranı */
+.game-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: #fff;
+  margin: 4px 56px 14px 0;
+}
+.brand {
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+}
+.stats { display: flex; gap: 8px; }
+.stat {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(6px);
+}
+.stat-score.bump { animation: bump 0.5s ease; }
+@keyframes bump {
+  40% { transform: scale(1.25); background: rgba(253, 224, 71, 0.5); }
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: #fff;
+}
+.q-number {
+  font-weight: 800;
+  white-space: nowrap;
+  font-size: 15px;
+}
+.progress {
+  flex: 1;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #fde047, var(--accent));
+  transition: width 0.5s ease;
+}
+
+.question-card.enter { animation: card-in 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2); }
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.question-card.shake { animation: shake 0.45s ease; }
+@keyframes shake {
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+.q-text {
+  margin: 14px 0 4px;
+  font-size: 19px;
+  font-weight: 600;
+}
+.q-text b { color: var(--brand-dark); }
+
+sup { font-size: 0.68em; line-height: 0; }
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.82em;
+  line-height: 1.15;
+  margin: 0 2px;
+}
+.frac > span:first-child {
+  border-bottom: 2px solid currentColor;
+  padding: 0 3px;
+}
+
+.q-figure {
+  margin: 16px 0 4px;
+  display: flex;
+  justify-content: center;
+}
+.figure-svg {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+}
+.figure-svg text {
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  fill: var(--ink);
+}
+.data-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: min(100%, 360px);
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  font-size: 17px;
+}
+.data-table th, .data-table td {
+  padding: 10px 18px;
+  text-align: left;
+}
+.data-table th {
+  background: var(--soft);
+  color: var(--brand-dark);
+  font-weight: 800;
+}
+.data-table td { border-top: 1px solid var(--line); font-weight: 700; }
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 62px;
+  padding: 10px 14px;
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  font-size: 18px;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s, background 0.15s, box-shadow 0.15s, opacity 0.2s;
+}
+.option:not(:disabled):hover {
+  transform: translateY(-2px);
+  border-color: #a78bfa;
+  box-shadow: 0 8px 18px rgba(109, 40, 217, 0.14);
+}
+.option:disabled { cursor: default; }
+.letter {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--soft);
+  color: var(--brand);
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+}
+.option.correct {
+  border-color: var(--ok-line);
+  background: var(--ok-bg);
+  animation: pop 0.4s ease;
+}
+.option.correct .letter { background: var(--ok-line); color: #fff; }
+.option.wrong {
+  border-color: var(--bad-line);
+  background: var(--bad-bg);
+}
+.option.wrong .letter { background: var(--bad-line); color: #fff; }
+.option.dim { opacity: 0.5; }
+@keyframes pop {
+  50% { transform: scale(1.04); }
+}
+
+/* Geri bildirim ve çözüm */
+.feedback {
+  margin-top: 20px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  animation: card-in 0.4s ease;
+}
+.feedback.is-correct { background: var(--ok-bg); border: 2px solid #86efac; }
+.feedback.is-wrong { background: #fff7ed; border: 2px solid #fdba74; }
+.fb-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.fb-emoji { font-size: 40px; line-height: 1; }
+.fb-head strong {
+  display: block;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 24px;
+  line-height: 1.2;
+}
+.is-correct .fb-head strong { color: var(--ok); }
+.is-wrong .fb-head strong { color: var(--bad); }
+.fb-head span { font-weight: 700; color: var(--muted); }
+.fb-head span b { color: var(--ok); }
+
+.steps-title {
+  margin: 16px 0 8px;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 19px;
+  color: var(--ink);
+}
+.steps {
+  list-style: none;
+  counter-reset: step;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding: 10px 14px 10px 50px;
+  border-radius: 14px;
+  background: #fff;
+  font-weight: 600;
+}
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+}
+.solution { margin-top: 12px; }
+.solution summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: var(--ok);
+  margin-bottom: 8px;
+}
+
+/* Bitiş ekranı */
+.end-card { text-align: center; margin-top: 24px; }
+.trophy {
+  font-size: 84px;
+  line-height: 1;
+  animation: spin-wobble 3s ease-in-out infinite;
+}
+.end-title {
+  font-family: "Baloo 2", sans-serif;
+  font-size: 36px;
+  margin: 8px 0 4px;
+  color: var(--brand-dark);
+}
+.stars { font-size: 40px; letter-spacing: 6px; }
+.stars .off { filter: grayscale(1); opacity: 0.3; }
+.final-score {
+  margin: 6px 0 0;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 800;
+  font-size: 48px;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.final-detail { margin: 2px 0 10px; color: var(--muted); font-weight: 700; }
+.final-message {
+  margin: 0 auto 20px;
+  max-width: 460px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: var(--soft);
+  font-weight: 700;
+}
+.breakdown {
+  display: grid;
+  gap: 12px;
+  text-align: left;
+  margin-bottom: 24px;
+}
+.bd-row-head {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.bd-bar {
+  height: 12px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+.bd-fill {
+  height: 100%;
+  border-radius: inherit;
+  transition: width 0.8s ease;
+}
+.bd-fill.topic-powers { background: #8b5cf6; }
+.bd-fill.topic-factors { background: #14b8a6; }
+.bd-fill.topic-gcd { background: #f97316; }
+.end-actions {
+  display: grid;
+  gap: 12px;
+}
+
+.footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0 16px 24px;
+}
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .card { padding: 20px 16px; }
+  .options { grid-template-columns: 1fr; }
+  .q-text { font-size: 17.5px; }
+  .btn-start { font-size: 23px; }
+  .btn-next { width: 100%; }
+  .brand { font-size: 19px; }
+  .data-table th, .data-table td { padding: 8px 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+.nw { white-space: nowrap; }
