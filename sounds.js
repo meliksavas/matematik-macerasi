@@ -1,12 +1,12 @@
 // Matematik Macerası — ses efektleri
-// Doğru cevap ve oyun sonu sesleri gerçek alkış/tezahürat kayıtlarıdır (audio/ klasörü, kaynaklar README'de).
+// Doğru cevap ve oyun sonu sesleri gerçek alkış ve çocuk sevinci kayıtlarıdır (audio/ klasörü, kaynaklar README'de).
 // Yanlış cevaptaki üzgün trombon sesi Web Audio API ile tarayıcıda üretilir.
 
 const Sounds = (() => {
   "use strict";
 
   const STORAGE_KEY = "matematik-macerasi-sessiz";
-  const CLIPS = { correct: "audio/dogru.mp3", finale: "audio/final.mp3" };
+  const CLIPS = { correct: "audio/dogru.mp3?v=2", finale: "audio/final.mp3?v=2" };
 
   let ctx = null;
   let master = null;
